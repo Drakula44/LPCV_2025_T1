@@ -16,7 +16,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-After that when starting working, just need to activate the virtual environment by running `source venv/bin/activate`.
+When opening a new terminal, just activate the virtual environment by running `source venv/bin/activate`.
 
 
 # Contributing
