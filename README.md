@@ -16,6 +16,22 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+4. Setup API key for Qualcomm AI Hub
+
+Create an account on https://aihub.qualcomm.com/. Follow the steps and confirm your email.
+
+After creating an account, click on your username (likely your email) on the top right of the screen, and then settings.
+
+You will find the command for installing AI hub, which should have already been done, and a command for adding the API key.
+
+It should look something like
+
+```bash
+qai-hub configure --api_token 22d43bede907145385c4afaa9fe633e5e5d49771
+```
+
+Run the command in terminal to set up API key
+
 When opening a new terminal, just activate the virtual environment by running `source venv/bin/activate`.
 
 
