@@ -3,6 +3,7 @@ import torch
 from torchvision.models import mobilenet_v2
 import requests
 import numpy as np
+import matplotlib.pyplot as plt
 from PIL import Image
 
 # Using pre-trained MobileNet
@@ -13,6 +14,12 @@ torch_model.eval()
 input_shape = (1, 3, 224, 224)
 example_input = torch.rand(input_shape)
 traced_torch_model = torch.jit.trace(torch_model, example_input)
+
+# plt.figure()
+# plt.imshow(np.array(example_input).reshape(3, 224, 224).transpose(1, 2, 0))
+# plt.show()
+
+# print('Gotovo')
 
 # Step 2: Compile model
 compile_job = hub.submit_compile_job(
