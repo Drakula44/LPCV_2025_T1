@@ -27,7 +27,7 @@ You will find the command for installing AI hub, which should have already been 
 It should look something like
 
 ```bash
-qai-hub configure --api_token 22d43bede907145385c4afaa9fe633e5e5d49771
+qai-hub configure --api_token 3890213802193821d0a839201
 ```
 
 Run the command in terminal to set up API key
