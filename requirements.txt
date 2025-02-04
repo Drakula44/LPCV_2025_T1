@@ -1,3 +1,6 @@
 matplotlib
 qai-hub
 qai-hub[torch]
+ipykernel
+kaggle
+pandas
