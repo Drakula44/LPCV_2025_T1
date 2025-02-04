@@ -2,3 +2,4 @@ venv
 *.pt
 *.tflite
 *.pth
+__pycache__

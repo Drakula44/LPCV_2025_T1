@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 import requests
 import torch
+import skimage as ski
 
 from abc import ABC, abstractmethod
 
@@ -29,6 +30,14 @@ class mug_image_getter(input_getter):
             np.transpose(np.array(image, dtype=np.float32) / 255.0, (2, 0, 1)), axis=0
         )
         return input_array
+
+class local_image_getter():
+    def get_input(self):
+        image = ski.io.imread('../data/1.jpeg')
+        image = ski.img_as_float32(image)
+        image = np.expand_dims(np.transpose(image, (2, 0, 1)), axis=0)
+        image = ski.transform.resize(image, (1, 3, 224, 224))
+        return image
     
 def marko():
     return "ja"
