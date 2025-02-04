@@ -3,3 +3,7 @@ qai-hub
 qai-hub[torch]
 einops
 timm
+gdown
+torchsummary
+torch
+torchviz
