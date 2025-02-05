@@ -1,3 +1,5 @@
 matplotlib
 qai-hub
 qai-hub[torch]
+
+torcheval

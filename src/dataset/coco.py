@@ -91,13 +91,20 @@ def move_images_to_class_folders(dataset_dir, split, classes):
 
 
 def coco_dataset(filepath):
-
-    dataset  = torchvision.datasets.ImageFolder(
-        root = filepath,
-        transform=torchvision.transforms.ToTensor(),
+    compose = torchvision.transforms.Compose(
+        [
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Resize((224, 224)),
+            torchvision.transforms.Normalize(
+                mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+            ),
+        ]
+    )
+    dataset = torchvision.datasets.ImageFolder(
+        root=filepath,
+        transform=compose,
     )
     return dataset
-
 
 
 def get_coco(dataset_dir, validation: bool = False, train: bool = True):
