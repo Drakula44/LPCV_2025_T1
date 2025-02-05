@@ -1,3 +1,6 @@
 matplotlib
 qai-hub
 qai-hub[torch]
+
+pydantic # for data validation and settings management
+pyyaml # for yaml file parsing

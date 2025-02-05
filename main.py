@@ -5,24 +5,27 @@ import requests
 import numpy as np
 from PIL import Image
 
+from src.quihub_utils.compile import CompileJob, CompileJobConfig
+import yaml
+
 # Using pre-trained MobileNet
 torch_model = mobilenet_v2(pretrained=True)
 torch_model.eval()
 
-# Step 1: Trace model
-input_shape = (1, 3, 224, 224)
-example_input = torch.rand(input_shape)
-traced_torch_model = torch.jit.trace(torch_model, example_input)
+CONFIG_PATH = "config.yaml"
+with open(CONFIG_PATH) as f:
+    data = yaml.load(f, Loader=yaml.FullLoader)
+    config = CompileJobConfig(**data)
 
-# Step 2: Compile model
-compile_job = hub.submit_compile_job(
-    model=traced_torch_model,
-    device=hub.Device("Snapdragon 8 Elite QRD"),
-    input_specs=dict(image=input_shape),
-)
+# Step 1: Initialize the compile job
+compile_job = CompileJob(config)
 
-# Step 3: Profile on cloud-hosted device
+# Step 3: Compile the model
+compile_job.run(torch_model)
+
+# Get target model
 target_model = compile_job.get_target_model()
+
 profile_job = hub.submit_profile_job(
     model=target_model,
     device=hub.Device("Snapdragon 8 Elite QRD"),
