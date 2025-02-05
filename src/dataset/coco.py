@@ -4,7 +4,8 @@ import json
 import shutil
 from tqdm import tqdm
 import torchvision
-from utils import GLOBAL_CLASSES
+
+from .utils import GLOBAL_CLASSES
 
 
 def download_coco(dataset_dir: str, validation: bool = False, train: bool = True):
@@ -89,12 +90,14 @@ def move_images_to_class_folders(dataset_dir, split, classes):
     shutil.rmtree(os.path.join(dataset_dir, f"{split}2017"))
 
 
-def coco_dataset():
-    dataset = torchvision.datasets.ImageFolder(
-        root="data/coco/val",
+def coco_dataset(filepath):
+
+    dataset  = torchvision.datasets.ImageFolder(
+        root = filepath,
         transform=torchvision.transforms.ToTensor(),
     )
     return dataset
+
 
 
 def get_coco(dataset_dir, validation: bool = False, train: bool = True):
@@ -113,4 +116,8 @@ def get_coco(dataset_dir, validation: bool = False, train: bool = True):
                 split="train",
                 classes=GLOBAL_CLASSES,
             )
-    return coco_dataset()
+    if(validation == True and train == False):
+        return coco_dataset(os.path.join(coco_dir, "val"))
+    elif(validation == False and train == True):
+        return coco_dataset(os.path.join(coco_dir, "train"))
+    return coco_dataset(coco_dir)
