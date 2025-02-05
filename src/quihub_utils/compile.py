@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import Union, Tuple
 
 import torch
 import pydantic
@@ -7,20 +7,12 @@ import qai_hub as hub
 
 class CompileJobConfig(pydantic.BaseModel):
     device: str
-    input_shape: dict[str, tuple[int]]
-    # validate that input_shape contains 'image' key
-
-    @pydantic.field_validator("input_shape")
-    def validate_input_shape(cls, value):
-        if "image" not in value:
-            raise ValueError("Input shape must contain 'image'")
-        return value
-
+    input_shape: Tuple[int, int, int, int]
 
 class CompileJob:
     def __init__(self, config: CompileJobConfig):
         self.device = hub.Device(config.device)
-        self.input_shape: dict[str, tuple[int]] = config.input_shape
+        self.input_shape: dict[str, tuple[int]] = {"image": config.input_shape}
         self.compile_job: List[hub.CompileJob] = []
 
     def trace_torch(self, model: torch.nn.Module) -> torch.jit.ScriptModule:

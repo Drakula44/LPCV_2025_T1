@@ -5,7 +5,7 @@ import requests
 import numpy as np
 from PIL import Image
 
-from src.quihub_utils import CompileJob, CompileJobConfig
+from src.quihub_utils.compile import CompileJob, CompileJobConfig
 import yaml
 
 # Using pre-trained MobileNet
