@@ -6,3 +6,5 @@ kaggle
 pandas
 
 wget
+
+torcheval
