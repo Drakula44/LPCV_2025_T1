@@ -1,0 +1,10 @@
+device: &device "Snapdragon 8 Elite QRD"
+input_shape: &input_shape [3, 224, 224]
+
+compile_job:
+  device: *device
+  input_shape: *input_shape
+
+profile_job:
+  device: *device
+  input_shape: *input_shape
