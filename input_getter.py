@@ -11,15 +11,22 @@ from abc import ABC, abstractmethod
 
 class input_getter(ABC):
     @abstractmethod
-    def get_input(self):
+    def get_input_torch(self):
+        pass
+    def get_input_numpy(self):
         pass
 
+
 class random_input_getter(input_getter):
-    def get_input(self):
+    def __init__(self):
+        self.img = torch.rand(1, 3, 224, 224)
+    def get_input_torch(self):
         return torch.rand(1, 3, 224, 224)
+    def get_input_numpy(self):
+        return self.img.numpy()
 
 class mug_image_getter(input_getter):
-    def get_input(self):
+    def __init__(self):
         sample_image_url = (
         "https://qaihub-public-assets.s3.us-west-2.amazonaws.com/apidoc/input_image1.jpg"
         )
@@ -29,15 +36,26 @@ class mug_image_getter(input_getter):
         input_array = np.expand_dims(
             np.transpose(np.array(image, dtype=np.float32) / 255.0, (2, 0, 1)), axis=0
         )
-        return input_array
+        self.img = input_array
+
+    def get_input_torch(self):
+        return torch.tensor(self.img)
+    
+    def get_input_numpy(self):
+        return self.img
+        
+# Skroz glupa klasa koja uzima sliku na datom pathu
 
 class local_image_getter():
-    def get_input(self):
-        image = ski.io.imread('../data/1.jpeg')
-        image = ski.img_as_float32(image)
-        image = np.expand_dims(np.transpose(image, (2, 0, 1)), axis=0)
-        image = ski.transform.resize(image, (1, 3, 224, 224))
-        return image
+    def __init__(self, path):
+        self.img = ski.io.imread(path)
+        self.img = ski.img_as_float32(self.img)
+        self.img = np.expand_dims(np.transpose(self.img, (2, 0, 1)), axis=0)
+        self.img = ski.transform.resize(self.img, (1, 3, 224, 224))
+
+    def get_input_numpy(self):
+        return self.img
     
-def marko():
-    return "ja"
+    def get_input_torch(self):
+        return torch.tensor(self.img)
+    

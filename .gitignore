@@ -3,3 +3,4 @@ venv
 *.tflite
 *.pth
 __pycache__
+.vscode
