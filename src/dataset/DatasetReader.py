@@ -3,7 +3,7 @@ import torchvision.transforms as T
 import json
 import os
 from PIL import Image
-import src.dataset.utils
+import src.dataset.utils as utils
 
 class COCODataset(torch.utils.data.Dataset):
     def __init__(self, annotation_file, image_dir, target_classes, transform=None, condition=None):
@@ -11,7 +11,7 @@ class COCODataset(torch.utils.data.Dataset):
         Args:
             annotation_file (str): Path to the COCO JSON annotation file.
             image_dir (str): Path to the directory containing images.
-            target_classes (set): Set of category names to include.
+            target_classes (list): List of category names to include.
             transform (callable, optional): Optional transform to apply to cropped images.
             Condition (callable, optional): Optional condition determine if the image should be included.
         """
