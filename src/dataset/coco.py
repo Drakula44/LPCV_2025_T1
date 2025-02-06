@@ -26,12 +26,22 @@ def download_coco(dataset_dir: str, validation: bool = False, train: bool = True
         zip_path = os.path.join(dataset_dir, f"{split}.zip")
         subprocess.run(["wget", "-O", zip_path, url])
 
+<<<<<<< HEAD
         subprocess.run(["unzip", "-q", "-d", dataset_dir, zip_path])
+=======
+        subprocess.run(["7z", "x", zip_path, f"-o{dataset_dir}"])
+>>>>>>> 5e04307 (Treniranje mobilenetv2, mobilenetv3-small za COCO)
         os.remove(zip_path)
 
     print("✅ COCO dataset downloaded and extracted!")
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 5e04307 (Treniranje mobilenetv2, mobilenetv3-small za COCO)
 def move_images_to_class_folders(dataset_dir, split, classes):
     """Move COCO images into class folders based on labels."""
     annotations_file = os.path.join(
