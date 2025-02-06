@@ -2,10 +2,8 @@ import torch
 import torchvision.transforms as T
 import json
 import os
-import numpy as np
-import time
 from PIL import Image
-import utils
+import src.dataset.utils
 
 class COCODataset(torch.utils.data.Dataset):
     def __init__(self, annotation_file, image_dir, target_classes, transform=None, condition=None):
@@ -29,9 +27,13 @@ class COCODataset(torch.utils.data.Dataset):
 
         self.name_to_annotation_id = {cat['name']: cat['id'] for cat in self.coco_data['categories']}
 
+        self.annotation_id_to_name = {cat['id']: cat['name'] for cat in self.coco_data['categories']}
+
         self.target_cat_ids_annotations = {self.name_to_annotation_id[name] for name in target_classes} 
 
         self.name_to_local_id = {name: idx for idx, name in enumerate(target_classes)}
+
+        self.local_id_to_name = {idx: name for idx, name in enumerate(target_classes)}
 
         # Filter annotations to include only those of target classes
         self.annotations = [ann for ann in self.coco_data['annotations'] if ann['category_id'] in self.target_cat_ids_annotations]
@@ -47,7 +49,7 @@ class COCODataset(torch.utils.data.Dataset):
         ann = self.annotations[idx]
         image_id = ann['image_id']
         category_id_annotation = ann['category_id']
-        category_name = self.coco_data['categories'][category_id_annotation]['name']
+        category_name = self.annotation_id_to_name[category_id_annotation]
         local_id = self.name_to_local_id[category_name]
         bbox = ann['bbox']  # Format: [x, y, width, height]
         
@@ -67,16 +69,6 @@ class COCODataset(torch.utils.data.Dataset):
 
 if (__name__ == '__main__'):
 
-    # print(set([s.lower() for s in utils.GLOBAL_CLASSES]))
-
-    # annotation_file = '../data/annotations/annotations/instances_val2017.json'
-
-    # with open(annotation_file, 'r') as f:
-    #         coco_data = json.load(f)
-
-    
-
-
     dataset = COCODataset(
     annotation_file='../data/annotations/annotations/instances_val2017.json',
     image_dir= '../data/val2017/val2017',
@@ -85,26 +77,27 @@ if (__name__ == '__main__'):
 
     print(dataset.target_cat_ids_annotations)
     print(dataset.name_to_annotation_id)
+    print(dataset.target_cat_ids_annotations)
 
-    # print("Dataset made")
+    print("Dataset made")
 
-    # print(len(dataset))
+    print(len(dataset))
 
-    # classes = [0]*64
+    classes = [0]*64
 
-    # for i in range(0, len(dataset)):
-    #     image, label = dataset[i]
-    #     classes[label] += 1
+    for i in range(0, len(dataset)):
+        image, label = dataset[i]
+        classes[label] += 1
 
-    # for i in range(0, 64):
-    #     print(classes[i])
+    for i in range(0, 64):
+        print(classes[i])
 
 
-    # # print(label)
+    # print(label)
 
-    # # print(type(image))
+    # print(type(image))
 
-    # # import matplotlib.pyplot as plt
-    # # print("Image shape:", image.shape)
-    # # plt.imshow(image.permute(1, 2, 0))
-    # # plt.show()
+    # import matplotlib.pyplot as plt
+    # print("Image shape:", image.shape)
+    # plt.imshow(image.permute(1, 2, 0))
+    # plt.show()
