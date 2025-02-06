@@ -8,9 +8,6 @@ import copy
 import requests
 import helper
 
-# Apstraktna klasa za dobijanje ulaznih slika, za sada samo koristim random i onu njihovu sliku, ideja je da se kada se napravi
-# dataset da nekako izvlaci iz njega
-
 
 def compile_job(traced_model, input_shape):
     cj = hub.submit_compile_job(
