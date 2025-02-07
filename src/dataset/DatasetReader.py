@@ -23,15 +23,27 @@ class COCODataset(torch.utils.data.Dataset):
         with open(annotation_file, 'r') as f:
             self.coco_data = json.load(f)
         
+
+        # Zeljene kategorije
         self.target_cat_names = set(target_classes)
+
+        # Mapiranje imena kategorija u id JSON fila-a
 
         self.name_to_annotation_id = {cat['name']: cat['id'] for cat in self.coco_data['categories']}
 
+        # Mapiranje id kategorija u JSON fajlu u ime kategorija
+
         self.annotation_id_to_name = {cat['id']: cat['name'] for cat in self.coco_data['categories']}
+
+        # Set IDja u JSON fajlu koji odgovaraju zeljenim kategorijama
 
         self.target_cat_ids_annotations = {self.name_to_annotation_id[name] for name in target_classes} 
 
+        # Mapiranje imena kategorija u lokalne IDjeve (lokalni ID je redni broj kategorije u listi target_classes)
+
         self.name_to_local_id = {name: idx for idx, name in enumerate(target_classes)}
+
+        # Mapiranje lokalnih IDjeva u imena kategorija
 
         self.local_id_to_name = {idx: name for idx, name in enumerate(target_classes)}
 
