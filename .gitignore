@@ -2,3 +2,8 @@ data/
 dump/
 env
 venv/*
+
+**/__pycache__/*
+*.pth
+*.pt
+*.tflite
