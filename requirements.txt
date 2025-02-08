@@ -4,3 +4,5 @@ qai-hub[torch]
 ipykernel
 kaggle
 pandas
+
+wget
