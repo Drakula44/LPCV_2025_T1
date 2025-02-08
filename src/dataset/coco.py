@@ -44,6 +44,6 @@ def extract_dataset(dataset_dir: str):
 
 
 if __name__ == "__main__":
-    dataset_dir = "datasets/coco"
+    dataset_dir = "data/coco"
     download_coco(dataset_dir, validation=True, train=False)
     extract_dataset(dataset_dir)
