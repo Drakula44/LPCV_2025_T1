@@ -26,7 +26,7 @@ def download_coco(dataset_dir: str, validation: bool = False, train: bool = True
         zip_path = os.path.join(dataset_dir, f"{split}.zip")
         subprocess.run(["wget", "-O", zip_path, url])
 
-        subprocess.run(["unzip", "-q", "-d", dataset_dir, zip_path])
+        subprocess.run(["7z", "x", zip_path, f"-o{dataset_dir}"])
         os.remove(zip_path)
 
     print("✅ COCO dataset downloaded and extracted!")

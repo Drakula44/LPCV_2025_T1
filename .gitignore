@@ -1,4 +1,5 @@
 data/
 dump/
+src/dataset/__pycache__/
 env
 venv/*
