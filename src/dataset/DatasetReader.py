@@ -4,6 +4,7 @@ from torchvision import datasets
 import json
 import os
 from PIL import Image
+import random
 # import utils as utils
 
 class COCODataset(torch.utils.data.Dataset):
