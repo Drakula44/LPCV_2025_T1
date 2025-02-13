@@ -42,3 +42,13 @@ def compile_profile_inference(model: torch.nn.Module, input_getter: input_getter
     inference_job_object = inference_job(qai_model, input_getter.get_input_numpy())
 
     return compile_job_object, profile_job_object, inference_job_object
+
+def compile_profile_inference_tensor(model: torch.nn.Module, input):
+    input_shape = input.cpu().numpy().shape
+    traced_model = torch.jit.trace(model, input)
+    compile_job_object = compile_job(traced_model, input_shape)
+    qai_model = compile_job_object.get_target_model()
+    profile_job_object = profile_job(qai_model)
+    inference_job_object = inference_job(qai_model, input.cpu().numpy())
+
+    return compile_job_object, profile_job_object, inference_job_object
