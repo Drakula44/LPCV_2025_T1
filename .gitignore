@@ -3,3 +3,12 @@ dump/
 src/dataset/__pycache__/
 env
 venv/*
+.venv/*
+/venv/*
+datasets/*
+*.pth
+*.ckpt
+*.tflite
+*.pyc
+logs/mobilenet_v3/version_5/events.out.tfevents.1739459015.centar15-desktop1.257873.0
+dawda
