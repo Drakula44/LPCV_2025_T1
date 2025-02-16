@@ -1,5 +1,9 @@
-data/
+data
 dump/
-src/dataset/__pycache__/
 env
 venv/*
+
+**/__pycache__/*
+*.pth
+*.pt
+*.tflite
