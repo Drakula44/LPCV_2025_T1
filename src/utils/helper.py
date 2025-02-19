@@ -8,6 +8,8 @@ def get_imagenet_categories():
     response.raw.decode_content = True
     return [str(s.strip()) for s in response.raw]
 
+    
+
 
 # Nisam siguran da li dobro radi kada se ne posalji ndarray
 def print_probablities_from_output(output, categories = None, top = 5, modelname = "", filename = ""):

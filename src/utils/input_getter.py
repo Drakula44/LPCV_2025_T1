@@ -37,6 +37,7 @@ class mug_image_getter(input_getter):
             np.transpose(np.array(image, dtype=np.float32) / 255.0, (2, 0, 1)), axis=0
         )
         self.img = input_array
+        self.img = ski.transform.resize(self.img, (1, 3, 224, 224))
 
     def get_input_torch(self):
         return torch.tensor(self.img)
