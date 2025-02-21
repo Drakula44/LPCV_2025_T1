@@ -15,22 +15,23 @@ class PreprocessedMobileNetV2(torch.nn.Module):
         self.mobilenet_v2.load_state_dict(state_dict)
 
         # Define preprocessing steps
-        self.preprocess = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
+
+        # self.preprocess = transforms.Compose([
+        #     transforms.Resize((224, 224)),
+        #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        # ])
 
     def forward(self, img):
         # Apply preprocessing
-        if isinstance(img, torch.Tensor) and len(img.shape) == 4:
-            # If already a batch tensor, skip preprocessing
-            img_tensor = img
-        else:
-            # Preprocess a PIL image or similar input
-            img_tensor = self.preprocess(img).unsqueeze(0)  # Add batch dimension
+        # if isinstance(img, torch.Tensor) and len(img.shape) == 4:
+        #     # If already a batch tensor, skip preprocessing
+        #     img_tensor = img
+        # else:
+        #     # Preprocess a PIL image or similar input
+        #     img_tensor = self.preprocess(img).unsqueeze(0)  # Add batch dimension
 
         # Pass the preprocessed image through the model
-        return self.mobilenet_v2(img_tensor)
+        return self.mobilenet_v2(img)
 
 def run_inference(model, device, input_dataset):
     """Submit an inference job for the model."""
